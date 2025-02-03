@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "args": "^5.0.3",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "node-fetch": "^3.3.2",
+    "path": "^0.12.7",
+    "url": "^0.11.4"
+  },
+  "name": "cli",
+  "version": "1.0.0",
+  "main": "index.js",
+   "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "description": ""
+}
