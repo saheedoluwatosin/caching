@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import URL from 'url';
+import {URL} from 'url';
 import http from 'http';
 
 let cache = {};
@@ -12,6 +12,7 @@ const clearCache = () => {
 const fetchAndCache = async (url, origin) => {
     try {
         const targetUrl = `${origin}${url.pathname}${url.search || ''}`;
+        //console.log('Target URL:', targetUrl);
         const response = await fetch(targetUrl);
         const data = await response.text();
         const headers = { ...response.headers };
@@ -22,12 +23,9 @@ const fetchAndCache = async (url, origin) => {
     }
 };
 
-// Accept `port` as a parameter
 const handleRequest = async (request, response, origin, port) => {
     try {
-        // Use the provided `port` to construct the URL
-        let requestUrl;
-        requestUrl = new URL(request.url, `http://localhost:${port}`);
+        let requestUrl = new URL(request.url, `http://localhost:${port}`);
         console.log('Received request for:', requestUrl.href);
 
         if (cache[requestUrl.href]) {
@@ -75,7 +73,10 @@ if (!origin) {
     process.exit(1);
 }
 
-const server = http.createServer((request, response) => handleRequest(request, response, origin));
+// Pass `port` to handleRequest
+const server = http.createServer((request, response) => 
+    handleRequest(request, response, origin, port)
+);
 
 server.listen(port, () => {
     console.log(`Caching proxy server running on http://localhost:${port}`);
